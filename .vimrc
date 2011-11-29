@@ -35,15 +35,13 @@ Bundle 'corntrace/bufexplorer'
 Bundle 'vim-scripts/python_match.vim'
 Bundle 'Raimondi/delimitMate'
 Bundle 'tpope/vim-cucumber'
-
 " Jekyll/Liquid
 Bundle 'tpope/vim-liquid'
 
 " Python bundles
-Bundle 'kevinw/pyflakes-vim'
+" Bundle 'kevinw/pyflakes-vim'
 Bundle 'fs111/pydoc.vim'
 Bundle 'vim-scripts/pep8'
-Bundle 'sontek/rope-vim'
 Bundle 'atourino/jinja.vim'
 
 " Ruby specific
@@ -55,16 +53,23 @@ Bundle 'tpope/vim-haml'
 Bundle 'tpope/vim-endwise'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'kchmck/vim-coffee-script'
+Bundle 'plasticboy/vim-markdown'
+Bundle 'henrik/vim-markdown-preview'
+Bundle 'emilkje/sparkup-bundle'
 
 " Non-github repos
 Bundle 'git://git.wincent.com/command-t.git'
+Bundle 'git://github.com/vim-scripts/supertab.git'
 
 " Fun, but not useful
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'skammer/vim-css-color'
+Bundle 'groenewege/vim-less'
 Bundle 'mgutz/vim-colors'
 Bundle 'ehamberg/vim-cute-python'
 Bundle 'tpope/vim-speeddating'
+
+" Custom
 
 filetype plugin indent on     " required!
 
@@ -76,19 +81,38 @@ else
 	set background=dark
 endif
 
+" Wildmenu completion
+"""""""""""""""""""""
+set wildmenu
+set wildmode=list:longest
+set wildignore+=.hg,.git,.svn                    " Version control
+set wildignore+=*.aux,*.out,*.toc                " LaTeX intermediate files
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
+set wildignore+=*.spl                            " compiled spelling word lists
+set wildignore+=*.sw?                            " Vim swap files
+set wildignore+=*.DS_Store                       " OSX bullshit
+set wildignore+=*.luac                           " Lua byte code
+set wildignore+=*.pyc                            " Python byte code
+set wildignore=**.class                          " Cursed Java class files
+
+" Save when losing focus
+au FocusLost * :wa
+
+" Resize splits when the window is resized
+au VimResized * exe "normal! \<c-w>="
+
+
 " Colours
 colorscheme chance-of-storm
-
-set ffs=unix,dos,mac "Default file types
-
-" swap files
-set directory=/tmp//
 
 " Basic
 syntax enable
 set number        " always show line numbers
 set hidden
 set backspace=indent,eol,start
+set directory=/tmp// " swap files
+set ffs=unix,dos,mac "Default file types
 set nowrap        " don't wrap lines
 set showmatch     " set show matching parenthesis
 set ignorecase    " ignore case when searching
@@ -98,10 +122,14 @@ set hlsearch      " highlight search terms
 set incsearch     " show search matches as you type
 set history=1000         " remember more commands and search history
 set undolevels=1000      " use many muchos levels of undo
-set wildignore=*.swp,*.bak,*.pyc,*.class
 set title                " change the terminal's title
 set visualbell           " don't beep
 set noerrorbells         " don't beep
+
+" Remove the toolbar if we're running under a GUI (e.g. MacVIM).
+if has("gui_running")
+  set guioptions=-t
+endif
 
 " Special characters for hilighting non-priting spaces/tabs/etc.
 set list listchars=tab:→\ ,trail:·
@@ -109,6 +137,8 @@ set list listchars=tab:→\ ,trail:·
 " Tabs & spaces
 set tabstop=4     " a tab is four spaces
 set shiftwidth=4  " number of spaces to use for autoindenting
+set softtabstop=4
+set expandtab
 set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
 set smarttab      " insert tabs on the start of a line according to
                   "    shiftwidth, not tabstop
@@ -120,11 +150,24 @@ set copyindent    " copy the previous indentation on autoindenting
 set foldmethod=indent
 set foldlevel=99
 
+" Highlight VCS conflict markers
+""""""""""""""""""""""""""""""""
+match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
+
+" I CAN HAZ NORMAL REGEXES?
+"""""""""""""""""""""""""""
+nnoremap / /\v
+vnoremap / /\v
+
 
 " General auto-commands
 """""""""""""""""""""""
 autocmd FileType * setlocal colorcolumn=0
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+
+" Markdown auto-commands
+""""""""""""""""""""""""
+autocmd FileType markdown setlocal wrap linebreak nolist
 
 " Ruby Configurations
 """""""""""""""""""""
@@ -148,6 +191,9 @@ au BufNewFile,BufReadPost *.coffee setlocal shiftwidth=2 expandtab
 " Javascript configurations
 """""""""""""""""""""""""""
 au BufNewFile,BufReadPost *.js setlocal shiftwidth=2 expandtab
+
+" Get jinja filetype selection working correctly for *.jinja.html files.
+autocmd Filetype *.jinja.html setlocal filetype=htmljinja
 
 " Make sure we hilight extra whitespace in the most annoying way possible.
 highlight ExtraWhitespace ctermbg=red guibg=red
@@ -188,20 +234,22 @@ let g:gist_show_privates = 1
 
 " TagBar
 nnoremap <silent> <F2> :TagbarToggle<CR>
-let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
+let g:tagbar_ctags_bin = '/usr/bin/ctags'
 let g:tagbar_autoshowtag = 1
-
-"Taglist
-"nnoremap <silent> <F8> :TlistToggle<CR>
 
 " Command-T
 nnoremap <Leader>r :CommandT<CR>
 
 " NERDTree
 nnoremap <leader>g :NERDTreeToggle<CR>
+let NERDTreeIgnore=['\.vim$', '\~$', '.*\.egg-info']
 
 " SnipMate
 let g:snippets_dir = "~/.vim/bundle/snipmate-snippets"
+
+" Sparkup
+let g:sparkupExecuteMapping = '<leader><Tab>'
+let g:sparkupNextMapping = '<leader>a'
 
 " Double rainbow - What does it mean!?
 au VimEnter * RainbowParenthesesToggle
@@ -209,12 +257,12 @@ au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
-" Statusline
-hi User1 guifg=#eea040 guibg=#222222
-hi User2 guifg=#dd3333 guibg=#222222
-hi User3 guifg=#ff66ff guibg=#222222
-hi User4 guifg=#a0ee40 guibg=#222222
-hi User5 guifg=#eeee40 guibg=#222222
+"Statusline
+hi User1 guifg=#eea040 guibg=#000000
+hi User2 guifg=#dd3333 guibg=#000000
+hi User3 guifg=#ff66ff guibg=#000000
+hi User4 guifg=#a0ee40 guibg=#000000
+hi User5 guifg=#eeee40 guibg=#000000
 
 set laststatus=2
 set statusline=
