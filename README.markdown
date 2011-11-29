@@ -7,11 +7,17 @@ switched to [Vundle](https://github.com/gmarik/vundle), because I got tired of f
 or remove a bundle, but I still wanted a way of controlling my entire Vim runtime from some centralized source. Vundle seems to hit all the right
 sweet spots.
 
+
 ## Usage
+
 
 **NOTE**: If you have existing files in `$HOME/.vim` or `$HOME/.vimrc`, make sure you take appropriate backups before performing any of the following steps.
 
  - First install Vundle, as per their [instructions](https://github.com/gmarik/vundle):
+
+```sh
+$ git clone git@github.com:jperras/vim-dotfiles.git ~/.vim && ln -s ~/.vim/.vimrc ~/.vimrc
+```
 
 ```sh
 $ git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
@@ -19,9 +25,6 @@ $ git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 
  - Next, get my vim-dotfiles & symlink the `.vimrc` to your `$HOME/.vimrc`:
 
-```sh
-$ git clone git@github.com:jperras/vim-dotfiles.git ~/.vim && ln -s ~/.vim/.vimrc ~/.vimrc
-```
 
  - Finally, we need to launch Vim and then invoke the appropriate Vundle commands to install all of the bundles using the `:BundleInstall` command. When this is completed
    you'll need to build the C extension for the [Command-T plugin](https://github.com/wincent/Command-T) plugin, which is a simple matter of cd'ing in to the command-t bundle
