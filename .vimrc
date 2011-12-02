@@ -279,5 +279,9 @@ set statusline +=%2*/%L%*                                 "total lines
 set statusline +=%1*%4c\ %*                               "column number
 set statusline +=%2*0x%04B\ %*                            "character under cursor
 
+" Synctastic settings
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_jump=0
+
+" SuperTab settings
+let g:SuperTabDefaultCompletionType = "context"
