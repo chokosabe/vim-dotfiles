@@ -35,6 +35,7 @@ Bundle 'corntrace/bufexplorer'
 Bundle 'vim-scripts/python_match.vim'
 Bundle 'Raimondi/delimitMate'
 Bundle 'tpope/vim-cucumber'
+
 " Jekyll/Liquid
 Bundle 'tpope/vim-liquid'
 
@@ -57,9 +58,10 @@ Bundle 'plasticboy/vim-markdown'
 Bundle 'henrik/vim-markdown-preview'
 Bundle 'emilkje/sparkup-bundle'
 
-" Non-github repos
+" github repos
 Bundle 'git://git.wincent.com/command-t.git'
 Bundle 'git://github.com/vim-scripts/supertab.git'
+Bundle 'https://github.com/drmingdrmer/xptemplate.git'
 
 " Fun, but not useful
 Bundle 'altercation/vim-colors-solarized'
@@ -239,6 +241,7 @@ let g:tagbar_autoshowtag = 1
 
 " Command-T
 nnoremap <Leader>r :CommandT<CR>
+
 
 " NERDTree
 nnoremap <leader>g :NERDTreeToggle<CR>
