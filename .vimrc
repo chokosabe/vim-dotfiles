@@ -61,7 +61,6 @@ Bundle 'emilkje/sparkup-bundle'
 " github repos
 Bundle 'git://git.wincent.com/command-t.git'
 Bundle 'git://github.com/vim-scripts/supertab.git'
-Bundle 'https://github.com/drmingdrmer/xptemplate.git'
 
 " Fun, but not useful
 Bundle 'altercation/vim-colors-solarized'
