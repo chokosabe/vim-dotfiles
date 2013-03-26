@@ -1,20 +1,12 @@
 ## Vim dotfiles
 
-These are the vim runtime files that I use on a daily basis. Feel free to clone, modify, change, add, murder or remove portions of it at will.
-
-I used to be a heavy advocate and user of [Pathogen](https://github.com/tpope/vim-pathogen) by the most excellent Tim Pope, but I have recently
-switched to [Vundle](https://github.com/gmarik/vundle), because I got tired of futzing around with git submodules every time I wanted to update
-or remove a bundle, but I still wanted a way of controlling my entire Vim runtime from some centralized source. Vundle seems to hit all the right
-sweet spots.
-
-
 ## Usage
 
 
 **NOTE**: If you have existing files in `$HOME/.vim` or `$HOME/.vimrc`, make sure you take appropriate backups before performing any of the following steps.
 
 ```sh
-$ git clone git@github.com:jperras/vim-dotfiles.git ~/.vim && ln -s ~/.vim/.vimrc ~/.vimrc
+$ git clone https://git@github.com/chokosabe/vim-dotfiles.git ~/.vim && ln -s ~/.vim/.vimrc ~/.vimrc
 ```
 
 Then install Vundle, as per their [instructions](https://github.com/gmarik/vundle):
